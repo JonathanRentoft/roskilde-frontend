@@ -1,7 +1,7 @@
 export default function Endpoints() {
   return (
     <div className="container">
-      <h2>📡 API Endpoints</h2>
+      <h2> API Endpoints</h2>
       <p>Her er en oversigt over de tilgængelige ruter i vores Javalin backend.</p>
       
       <table className="simple-table">
