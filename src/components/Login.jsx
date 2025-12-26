@@ -1,28 +1,28 @@
 import { useState } from 'react';
-import styles from './Login.module.css'; // Husk at lave denne css fil også!
 
 export default function Login({ onLogin }) {
   const [username, setUsername] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Simulerer login logic
+    // Simpel logik: Hvis man hedder 'admin', får man ADMIN rollen. Ellers USER.
     const role = username.toLowerCase() === 'admin' ? 'ADMIN' : 'USER';
     onLogin(username, role);
   };
 
   return (
-    <div className={styles.container}>
+    <div className="form-box">
       <h2>Log Ind</h2>
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <p>Skriv <strong>admin</strong> for at teste admin-panelet.</p>
+      <form onSubmit={handleSubmit}>
         <input 
+          className="input-field"
           type="text" 
-          placeholder="Brugernavn (skriv 'admin' for rettigheder)" 
+          placeholder="Brugernavn" 
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className={styles.input}
         />
-        <button type="submit" className={styles.button}>Log Ind</button>
+        <button type="submit" className="action-btn">Log Ind</button>
       </form>
     </div>
   );
