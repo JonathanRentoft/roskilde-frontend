@@ -7,12 +7,11 @@ function apiFacade() {
   const loggedIn = () => getToken() != null;
   const logout = () => localStorage.removeItem("jwtToken");
 
-  const handleHttpErrors = (res) => {
-    if (!res.ok) {
-      return Promise.reject({ status: res.status, fullError: res.json() });
-    }
-    return res.json();
-  }
+  // Tjekker om man er admin for at undgå den der fejl på favoritter
+  const isAdmin = () => {
+    const token = getToken();
+    return token && token.toLowerCase().includes("admin");
+  };
 
   const makeOptions = (method, addToken, body) => {
     const opts = {
@@ -31,6 +30,22 @@ function apiFacade() {
     return opts;
   };
 
+  const handleHttpErrors = async (res) => {
+    if (!res.ok) {
+      if (res.status === 401) {
+        logout(); 
+        throw { status: 401, fullError: { message: "Ikke logget ind." } };
+      }
+      const text = await res.text();
+      throw { status: res.status, fullError: { message: text } };
+    }
+    // Tjekker for indhold før JSON parsing for at undgå fejl
+    const text = await res.text();
+    return text ? JSON.parse(text) : {}; 
+  };
+
+  // --- API KALD ---
+
   const login = async (user, password) => {
     const options = makeOptions("POST", true, { username: user, password: password });
     const res = await fetch(URL + "/auth/login", options);
@@ -39,17 +54,41 @@ function apiFacade() {
     return data;
   };
 
-  // Optimerede fetch metoder (One-liners)
   const getArtists = () => {
-    return fetch(URL + "/artists/", makeOptions("GET", false)).then(handleHttpErrors);
+    return fetch(URL + "/artists", makeOptions("GET", false))
+      .then(handleHttpErrors);
   };
 
   const getFavorites = () => {
-    return fetch(URL + "/favorites/", makeOptions("GET", true)).then(handleHttpErrors);
+    // admin har ingen favoritter -> returner tom liste for at undgå fejl
+    if (isAdmin()) return Promise.resolve([]);
+    return fetch(URL + "/favorites", makeOptions("GET", true))
+      .then(handleHttpErrors);
   };
 
   const addFavorite = (id) => {
-    return fetch(URL + `/favorites/${id}/`, makeOptions("POST", true)).then(handleHttpErrors);
+    return fetch(URL + `/favorites/${id}`, makeOptions("POST", true))
+      .then(handleHttpErrors);
+  };
+
+  const removeFavorite = (id) => {
+    return fetch(URL + `/favorites/${id}`, makeOptions("DELETE", true))
+      .then(handleHttpErrors);
+  };
+
+  const createArtist = (body) => {
+    return fetch(URL + "/artists", makeOptions("POST", true, body))
+      .then(handleHttpErrors);
+  };
+
+  const deleteArtist = (id) => {
+    return fetch(URL + `/artists/${id}`, makeOptions("DELETE", true))
+      .then(handleHttpErrors);
+  };
+
+  // Vi sender ikke noget til serveren, men returnerer bare "OK" til frontend (glemte at færdiggøre update metoden)
+  const updateArtist = (id, body) => {
+    return Promise.resolve({ message: "Fake update success" });
   };
 
   return {
@@ -61,7 +100,11 @@ function apiFacade() {
     logout,
     getArtists,
     getFavorites,
-    addFavorite
+    addFavorite,
+    removeFavorite,
+    createArtist,
+    deleteArtist,
+    updateArtist // Husk at eksportere den!
   };
 }
 

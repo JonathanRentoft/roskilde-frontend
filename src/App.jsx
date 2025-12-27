@@ -1,12 +1,12 @@
-import './App.css'; // <--- VIGTIGT: Importer CSS filen her
-
 import { useState } from 'react';
+import './App.css';
 import Header from './components/Header';
 import Home from './components/Home';
 import Endpoints from './components/Endpoints';
 import Vision from './components/Vision';
 import Login from './components/Login';
 import Admin from './components/Admin';
+import Favorites from './components/Favorites';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -14,7 +14,7 @@ export default function App() {
 
   const handleLogin = (username, role) => {
     setUser({ username, role });
-    setCurrentPage(role === 'ADMIN' ? 'admin' : 'home');
+    setCurrentPage('home');
   };
 
   const renderPage = () => {
@@ -24,6 +24,7 @@ export default function App() {
       case 'vision': return <Vision />;
       case 'login': return <Login onLogin={handleLogin} />;
       case 'admin': return <Admin />;
+      case 'favorites': return <Favorites user={user} />;
       default: return <Home />;
     }
   };

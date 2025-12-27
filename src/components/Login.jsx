@@ -1,29 +1,38 @@
-import { useState } from 'react';
+import { useState } from "react";
+import facade from "../utils/apiFacade";
 
 export default function Login({ onLogin }) {
-  const [username, setUsername] = useState('');
+  const [loginCredentials, setLoginCredentials] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Simpel logik: Hvis man hedder 'admin', får man ADMIN rollen. Ellers USER.
-    const role = username.toLowerCase() === 'admin' ? 'ADMIN' : 'USER';
-    onLogin(username, role);
+  const performLogin = (evt) => {
+    evt.preventDefault(); // Forhindrer at siden genindlæser
+    
+    facade.login(loginCredentials.username, loginCredentials.password)
+      .then((data) => {
+        // Login succes! Vi kalder funktionen i App.jsx
+        onLogin(data.username, data.role);
+      })
+      .catch((err) => {
+        // Login fejl
+        setError("Forkert brugernavn eller kodeord");
+      });
+  };
+
+  const onChange = (evt) => {
+    setLoginCredentials({ ...loginCredentials, [evt.target.id]: evt.target.value });
   };
 
   return (
-    <div className="form-box">
+    <div className="container">
       <h2>Log Ind</h2>
-      <p>Skriv <strong>admin</strong> for at teste admin-panelet.</p>
-      <form onSubmit={handleSubmit}>
-        <input 
-          className="input-field"
-          type="text" 
-          placeholder="Brugernavn" 
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <button type="submit" className="action-btn">Log Ind</button>
+      <form onSubmit={performLogin}>
+        <input placeholder="Brugernavn" id="username" onChange={onChange} />
+        <input type="password" placeholder="Kodeord" id="password" onChange={onChange} />
+        <button type="submit">Login</button>
       </form>
+      
+      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 }

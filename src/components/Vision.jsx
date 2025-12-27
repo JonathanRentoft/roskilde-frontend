@@ -82,10 +82,18 @@ export default function Vision() {
           target="_blank" 
           rel="noreferrer"
           className="action-btn"
-          style={{ display: 'inline-block', textDecoration: 'none', width: 'auto', padding: '15px 30px', marginTop: '10px' }}
         >
-          Åbn GitHub Repository
+          Åbn API Repository
         </a>
+        <a 
+          href="https://github.com/JonathanRentoft/roskilde-frontend" 
+          target="_blank" 
+          rel="noreferrer"
+          className="action-btn"
+        >
+          Åbn frontend Repository
+        </a>
+
       </div>
     </div>
   );
