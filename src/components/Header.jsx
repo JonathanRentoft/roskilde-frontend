@@ -1,43 +1,42 @@
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import logo from '../assets/logo.png'; 
 import facade from "../utils/apiFacade";
 
-export default function Header({ setCurrentPage, user, setUser }) {
-  
-  const handleFavoritesClick = () => {
-    if (user) {
-      setCurrentPage('favorites');
-    } else {
-      setCurrentPage('login'); 
-    }
-  };
+export default function Header({ user, setUser }) {
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     facade.logout();
     setUser(null);
-    setCurrentPage('home');
+    navigate("/"); // Sender brugeren til forsiden efter man logger ud
   };
 
   return (
     <header className="header">
-      <img 
-        src={logo} 
-        alt="Logo" 
-        className="logo-img" 
-        onClick={() => setCurrentPage('home')} 
-      />
+      <Link to="/">
+        <img 
+          src={logo} 
+          alt="Logo" 
+          className="logo-img" 
+        />
+      </Link>
 
       <nav>
-        <button className="nav-btn" onClick={() => setCurrentPage('home')}>Forside</button>
-        <button className="nav-btn" onClick={() => setCurrentPage('vision')}>Vision</button>
-        <button className="nav-btn" onClick={() => setCurrentPage('endpoints')}>Endpoints</button>
-        <button className="nav-btn" onClick={handleFavoritesClick}>Favoritter</button>
+        
+        <NavLink to="/" className="nav-btn">Forside</NavLink>
+        <NavLink to="/vision" className="nav-btn">Vision</NavLink>
+        <NavLink to="/endpoints" className="nav-btn">Endpoints</NavLink>
+        
+        <NavLink to={user ? "/favorites" : "/login"} className="nav-btn">
+          Favoritter
+        </NavLink>
 
         {user && user.role === 'admin' && (
-          <button className="nav-btn admin-btn" onClick={() => setCurrentPage('admin')}>Admin</button>
+          <NavLink to="/admin" className="nav-btn admin-btn">Admin</NavLink>
         )}
 
         {!user ? (
-          <button className="nav-btn" onClick={() => setCurrentPage('login')}>Log Ind</button>
+          <NavLink to="/login" className="nav-btn">Log Ind</NavLink>
         ) : (
           <button className="nav-btn" onClick={handleLogout}>Log Ud</button>
         )}
