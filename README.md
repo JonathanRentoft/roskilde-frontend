@@ -1,16 +1,47 @@
-# React + Vite
+# ⛺ Roskilde Festival App (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Velkommen til frontenden af mit eksamensprojekt! Det her er "ansigtet" udadtil, hvor brugere kan se musikere, logge ind og gemme deres favoritter. 🎸
 
-Currently, two official plugins are available:
+Appen er bygget med **React** og **Vite**, så den er lynhurtig (og nem at crashe, hvis man piller for meget 😉).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tech Stack (Det jeg har brugt)
+* **React** (Fordi komponenter er nice)
+* **Vite** (Fordi Create-React-App er for langsomt)
+* **JavaScript** (Motoren bag det hele)
+* **React Router** (Til at skifte side uden at reloade)
+* **DigitalOcean** (Hvor den lever i skyen)
 
-## React Compiler
+## 📦 Sådan kører du den lokalt
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Hvis du vil lege med koden på din egen maskine:
 
-## Expanding the ESLint configuration
+1.  **Hent projektet:**
+    ```bash
+    git clone [https://github.com/jonathan0912000/roskilde-frontend.git](https://github.com/jonathan0912000/roskilde-frontend.git)
+    cd roskilde-frontend
+    ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2.  **Installer pakkerne (node_modules):**
+    ```bash
+    npm install
+    ```
+
+3.  **Start appen:**
+    ```bash
+    npm run dev
+    ```
+
+4.  Åbn `http://localhost:5173` i din browser. Boom! 💥
+
+## ⚙️ Konfiguration
+
+Appen snakker med min Backend API. Hvis du kører lokalt, eller hvis API'et flytter adresse, skal du rette én linje i filen:
+
+📂 `src/utils/apiFacade.js`
+
+```javascript
+// Til produktion (Live):
+const URL = "[https://api.insidertrades.io](https://api.insidertrades.io)";
+
+// Til lokal udvikling (hvis du kører backend lokalt):
+// const URL = "http://localhost:7071";
