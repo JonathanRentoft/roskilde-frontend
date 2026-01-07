@@ -41,13 +41,15 @@
   .logo-img { height: 50px; cursor: pointer; }
   
   .nav-btn {
-    background: none;
-    border: none;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-left: 20px;
-  }
+  color: #ff6b00;
+  text-decoration: none;
+  background: none;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 20px;
+}
   
   .admin-btn { color: red; }
   
