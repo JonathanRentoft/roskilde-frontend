@@ -10,8 +10,8 @@ export default function Login({ onLogin }) {
     
     facade.login(loginCredentials.username, loginCredentials.password)
       .then((data) => {
-        // Login succes! Vi kalder funktionen i App.jsx
-        onLogin(data.username, data.role);
+        // jeg kalder funktionen i App.jsx
+        onLogin(data.username, data.role);  
       })
       .catch((err) => {
         // Login fejl

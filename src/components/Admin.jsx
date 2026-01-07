@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Outlet, Link } from "react-router-dom"; // VIGTIGT: Imports til routing
+import { Outlet, Link } from "react-router-dom";
 import facade from "../utils/apiFacade";
 
 export default function Admin() {
@@ -63,14 +63,13 @@ export default function Admin() {
       genre: artist.genre || "",
       description: artist.description || ""
     });
-    window.scrollTo(0, 0); // Scroller op til formen
+    window.scrollTo(0, 0); // Scroller op til formen hvor man ændrer
   };
 
   const handleDelete = (id) => {
     if (window.confirm("Delete this artist?")) {
       facade.deleteArtist(id)
         .then(() => updateList())
-        .catch((err) => alert("Error deleting artist."));
     }
   };
 
@@ -84,17 +83,14 @@ export default function Admin() {
     <div className="container">
       <h2>Admin Dashboard</h2>
 
-      {/* --- HER ER DIN SUB-ROUTING (Spørgsmål 9) --- */}
-      {/* Dette viser eksaminator, at du forstår nested routes */}
       <div style={{ marginBottom: "20px", borderBottom: "1px solid #ccc", paddingBottom: "10px" }}>
         <p>Admin Tools:</p>
         <Link to="details">Vis Detaljer (Sub-route demo)</Link>
         <br />
-        
-        {/* Outlet er her, hvor indholdet fra <Route path="details" ... /> i App.jsx bliver vist */}
+      
         <Outlet />
       </div>
-      {/* --------------------------------------------- */}
+
 
       <div style={{ backgroundColor: "#f0f0f0", padding: "20px", borderRadius: "8px", marginBottom: "30px" }}>
         <h3>{isEditing ? "Edit Artist" : "Add New Artist"}</h3>

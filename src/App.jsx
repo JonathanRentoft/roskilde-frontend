@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Routes, Route } from "react-router-dom"; // Vi henter router-komponenter
+import { Routes, Route } from "react-router-dom"; 
 import './App.css';
 import Header from './components/Header';
 import Home from './components/Home';
@@ -18,7 +18,6 @@ export default function App() {
 
   return (
     <div>
-      {/* Header behøver ikke længere setCurrentPage, da den bruger Links */}
       <Header user={user} setUser={setUser} />
       
       <main>
@@ -32,7 +31,6 @@ export default function App() {
 
           <Route path="/admin" element={<Admin />}>
             {/* Denne rute vises KUN hvis URL er /admin/details */}
-            {/* Kræver at du har <Outlet /> i din Admin.jsx */}
             <Route path="details" element={<h3 style={{color: 'green'}}>Dette er en sub-route (Nested Route)</h3>} />
           </Route>
 

@@ -18,7 +18,7 @@
   }
   
   h1, h2, h3 {
-    color: #ff6b00; /* Beholder orange for genkendelighed */
+    color: #ff6b00; 
     margin-top: 0;
   }
   
@@ -49,7 +49,7 @@
     margin-left: 20px;
   }
   
-  .admin-btn { color: red; } /* Eneste farve-indikation for admin */
+  .admin-btn { color: red; }
   
   /* =========================================
      HERO / FORSIDE
@@ -65,7 +65,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.8; /* Gør teksten læsbar */
+    opacity: 0.8; /* Gør man ka læse teksten over billedet */
     display: block;
   }
   

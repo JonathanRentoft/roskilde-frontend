@@ -45,7 +45,6 @@ function apiFacade() {
   };
 
   // --- API KALD ---
-
   const login = async (user, password) => {
     const options = makeOptions("POST", true, { username: user, password: password });
     const res = await fetch(URL + "/auth/login", options);
@@ -60,7 +59,7 @@ function apiFacade() {
   };
 
   const getFavorites = () => {
-    // admin har ingen favoritter -> returner tom liste for at undgå fejl
+    // admin kan ik have nogen favoritter -> derfor returner jeg bare tom liste for at undgå fejl
     if (isAdmin()) return Promise.resolve([]);
     return fetch(URL + "/favorites", makeOptions("GET", true))
       .then(handleHttpErrors);
@@ -86,7 +85,7 @@ function apiFacade() {
       .then(handleHttpErrors);
   };
 
-  // Vi sender ikke noget til serveren, men returnerer bare "OK" til frontend (glemte at færdiggøre update metoden)
+  // Vi sender ikke noget til serveren, men returnerer bare "OK" til frontend (glemte at færdiggøre update metoden i mit API...)
   const updateArtist = (id, body) => {
     return Promise.resolve({ message: "Fake update success" });
   };
@@ -104,7 +103,7 @@ function apiFacade() {
     removeFavorite,
     createArtist,
     deleteArtist,
-    updateArtist // Husk at eksportere den!
+    updateArtist // ska tilføjes selvom den ik gør noget
   };
 }
 
