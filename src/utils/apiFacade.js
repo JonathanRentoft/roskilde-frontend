@@ -1,4 +1,4 @@
-const URL = "http://164.90.202.229:7071";
+const URL = "https://api.insidertrades.io";
 
 function apiFacade() {
 
