@@ -1,7 +1,7 @@
 import { useState } from "react";
 import facade from "../utils/apiFacade";
 
-export default function Login({ onLogin }) {
+export default function Login({ onLogin }) { //objekt destructuring, vi får onLogin som prop som er en callback funktion
   const [loginCredentials, setLoginCredentials] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
 

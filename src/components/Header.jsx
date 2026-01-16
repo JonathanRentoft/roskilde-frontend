@@ -31,11 +31,11 @@ export default function Header({ user, setUser }) {
           Favoritter
         </NavLink>
 
-        {user && user.role === 'admin' && (
+        {user && user.role === 'admin' && ( //logical and operator
           <NavLink to="/admin" className="nav-btn admin-btn">Admin</NavLink>
         )}
 
-        {!user ? (
+        {!user ? ( //ternary operator 
           <NavLink to="/login" className="nav-btn">Log Ind</NavLink>
         ) : (
           <button className="nav-btn" onClick={handleLogout}>Log Ud</button>

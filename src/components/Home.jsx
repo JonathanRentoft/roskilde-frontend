@@ -4,11 +4,11 @@ import concertImage from '../assets/roskilde-scene.jpeg';
 
 export default function Home() {
   const [schedule, setSchedule] = useState({});
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState([]); //lokal scope
 
-  useEffect(() => {
+  useEffect(() => { //react hook der kører når komponenten mountes
     facade.getArtists().then((data) => {
-      const sortedSchedule = {};
+      const sortedSchedule = {}; // block scope
 
       data.forEach((artist) => {
         const day = artist.day || "Other Days";
@@ -36,7 +36,7 @@ export default function Home() {
     if (facade.loggedIn() === false) {
       alert("You must be logged in to save favorites!");
       return; 
-    }
+    } 
 
     const isFavorite = favorites.includes(id);
 
@@ -66,7 +66,7 @@ export default function Home() {
         
         <div className="schedule-grid">
           
-          {Object.keys(schedule).map((dayName) => {
+          {Object.keys(schedule).map((dayName) => { //laver schedule objekt om til array
             const artistsOnDay = schedule[dayName];
 
             return (

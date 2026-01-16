@@ -1,0 +1,19 @@
+// Uden JSX 
+
+// 1. Lav elementet
+const stjerne = document.createElement('span');
+
+// 2. Sæt indhold og stil baseret på logik
+if (isFav) {
+    stjerne.innerText = "★";
+    stjerne.style.color = "gold";
+} else {
+    stjerne.innerText = "☆";
+    stjerne.style.color = "#ccc";
+}
+
+// 3. klik-event
+stjerne.addEventListener('click', () => handleStarClick(artist.id));
+
+// 4. Find forælderen og indsæt elementet. 
+document.getElementById('en-eller-anden-celle').appendChild(stjerne);

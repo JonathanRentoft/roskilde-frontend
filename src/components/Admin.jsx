@@ -18,7 +18,7 @@ export default function Admin() {
     updateList();
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (e) => { //laver nyt objekt ud af de gamle felter fra formdata og overskriver det ændrede felt
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 

@@ -1,4 +1,4 @@
-const URL = "https://api.insidertrades.io";
+const URL = "https://api.insidertrades.io"; //global da alle mine api kald bruger den og fordi det er en konfiguration og ikke logik
 
 function apiFacade() {
 
@@ -13,7 +13,7 @@ function apiFacade() {
     return token && token.toLowerCase().includes("admin");
   };
 
-  const makeOptions = (method, addToken, body) => {
+  const makeOptions = (method, addToken, body) => { //bruges til alle fetch kald (genbrugsfunktion)
     const opts = {
       method: method,
       headers: {
@@ -22,7 +22,7 @@ function apiFacade() {
       }
     };
     if (addToken && loggedIn()) {
-      opts.headers["Authorization"] = `Bearer ${getToken()}`;
+      opts.headers["Authorization"] = `Bearer ${getToken()}`; //JWT token i Authorization header
     }
     if (body) {
       opts.body = JSON.stringify(body);
@@ -42,10 +42,10 @@ function apiFacade() {
     // Tjekker for indhold før JSON parsing for at undgå fejl
     const text = await res.text();
     return text ? JSON.parse(text) : {}; 
-  };
+  }; 
 
   // --- API KALD ---
-  const login = async (user, password) => {
+  const login = async (user, password) => { //async fordi ellers kan vi ikke bruge await
     const options = makeOptions("POST", true, { username: user, password: password });
     const res = await fetch(URL + "/auth/login", options);
     const data = await handleHttpErrors(res);

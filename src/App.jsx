@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Routes, Route } from "react-router-dom"; 
+import { Routes, Route } from "react-router-dom"; // sørger for SPA, da siderne ikke genindlæes
 import './App.css';
 import Header from './components/Header';
 import Home from './components/Home';
@@ -8,6 +8,7 @@ import Vision from './components/Vision';
 import Login from './components/Login';
 import Admin from './components/Admin';
 import Favorites from './components/Favorites';
+import NotFound from './components/NotFound';
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -29,13 +30,13 @@ export default function App() {
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/favorites" element={<Favorites user={user} />} />
 
-          <Route path="/admin" element={<Admin />}>
+          <Route path="/admin" element={<Admin />}> 
             {/* Denne rute vises KUN hvis URL er /admin/details */}
-            <Route path="details" element={<h3 style={{color: 'green'}}>Dette er en sub-route (Nested Route)</h3>} />
+            <Route path="details" element={<h3 style={{color: 'green'}}>Sub-route eksemepel(Nested Route)</h3>} />
           </Route>
 
-          {/* 404 Fallback - Vises hvis ingen andre ruter matcher */}
-          <Route path="*" element={<h2>404 - Siden findes ikke</h2>} />
+          {/* 404 Fallback */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
     </div>
